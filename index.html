@@ -1,17 +1,75 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Smarteye.id WebVR</title>
+  <title>| Smarteye.id WebVR</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   <style>
-    body {
-      margin: 0;
+    body { margin: 0 }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(12,25,60,0.64);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 10px;
+      width: 70%;
+    }
+
+    .close {
+      background: transparent;
+      border: 0;
+      padding: 15px 10px 0;
+      height: auto;
+      position: absolute;
+      right: 0;
+      cursor: pointer;
     }
   </style>
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <meta content="#014372" name="theme-color">
+  <meta content="#014372" name="msapplication-TileColor">
+
+  <link rel="icon" sizes="32x32" href="/static_assets/favicon/smarteye-logo32.png" />
+  <link rel="icon" sizes="192x192" href="/static_assets/favicon/smarteye-logo192.png" />
+  <link rel="apple-touch-icon-precomposed" href="/static_assets/favicon/smarteye-logo192.png" />
+  <meta name="msapplication-TileImage" content="/static_assets/favicon/smarteye-logo144.png" />
+
+  <link rel="preload" as="script" href="./client.bundle.js">
+  <link rel="preload" as="script" href="./index.bundle.js">
+
 </head>
 
 <body>
-  <!-- Attachment point for your app -->
-  <div id="container"></div>
+  <main id="container">
+    <img
+      style="position: absolute; margin: 15px 0 0 15px;"
+      src="static_assets/smarteye-header-logo.png"
+    />
+  </main>
+
+  <div id="modal-system" class="modal">
+    <button class="close" onclick="closeModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" width="50"><path fill="#a0a0a0" d="M26 0a26 26 0 1026 26A26.029 26.029 0 0026 0zm0 50a24 24 0 1124-24 24.028 24.028 0 01-24 24z"></path><path fill="#a0a0a0" d="M35.707 16.293a1 1 0 00-1.414 0L26 24.586l-8.293-8.293a1 1 0 00-1.414 1.414L24.586 26l-8.293 8.293a1 1 0 101.414 1.414L26 27.414l8.293 8.293a1 1 0 001.414-1.414L27.414 26l8.293-8.293a1 1 0 000-1.414z"></path></svg>
+    </button>
+
+    <div class="modal-content">
+      <iframe width="100%" height="450" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <p></p>
+    </div> 
+  </div>
+
   <script src="./client.bundle.js"></script>
   <script>
     // Initialize the React 360 application
@@ -22,6 +80,15 @@
         assetRoot: 'static_assets/',
       }
     );
+
+    function closeModal() {
+      const modal = document.getElementById('modal-system');
+      const iframes = document.querySelector('#modal-system iframe');
+      
+      document.querySelector('#modal-system p').innerHTML = '';
+      iframes.setAttribute('src', '')
+      modal.style.display = "none";
+    }
   </script>
 </body>
 
